@@ -1,12 +1,12 @@
-import './App.css'
-import Home from "@/pages/Home.tsx";
+import "./App.css";
+import Login from "@/pages/Login.tsx";
 
 function App() {
   return (
-      <>
-        <Home/>
-      </>
-  )
+    <>
+      <Login />
+    </>
+  );
 }
 
-export default App
+export default App;
