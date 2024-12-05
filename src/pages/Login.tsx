@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button.tsx";
 import { Input } from "@/components/ui/input.tsx";
+import { Label } from "@/components/ui/label";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="mt-24">
@@ -21,16 +25,18 @@ export default function Login() {
           className="w-11/12 max-w-xl h-10 m-1"
         ></Input>
         <Button
-          className="w-11/12 max-w-xl h-10
-              text-lg shadow-lg m-1
-              bg-blue-600 hover:bg-blue-500 active:bg-blue-700"
-          onClick={() => alert("아직 안했지롱~")}
-        >
-          Sign In
-        </Button>
-        <Button variant="link" onClick={() => alert("아직 안했지롱~")}>
-          아직 회원이 아니신가요? 회원가입하기
-        </Button>
+            className="w-11/12 max-w-xl h-10
+                text-lg shadow-lg m-1
+                bg-blue-600 hover:bg-blue-500 active:bg-blue-700"
+            onClick={() => navigate("/")}>
+            Sign In
+          </Button>
+        <div className="flex-row">
+          <Label>아직 회원이 아니신가요?</Label>
+          <Button className="font-semibold text-blue-700" variant="link" onClick={() => alert("아직 안했지롱~")}>
+            회원가입하기
+          </Button>
+        </div>
       </div>
     </>
   );

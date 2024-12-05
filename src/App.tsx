@@ -1,10 +1,15 @@
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Login from "@/pages/Login.tsx";
+import Home from "@/pages/Home";
 
 function App() {
   return (
     <>
-      <Login />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route index element={<Home />} />
+      </Routes>
     </>
   );
 }
