@@ -1,12 +1,17 @@
-import './App.css'
-import Home from "@/pages/Home.tsx";
+import { Route, Routes } from "react-router-dom";
+import "./App.css";
+import Login from "@/pages/Login.tsx";
+import Home from "@/pages/Home";
 
 function App() {
   return (
-      <>
-        <Home/>
-      </>
-  )
+    <>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route index element={<Home />} />
+      </Routes>
+    </>
+  );
 }
 
-export default App
+export default App;
