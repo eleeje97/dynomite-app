@@ -5,6 +5,11 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
+  
+  const onLoginBtnClick = () => {
+    localStorage.setItem('accessToken', 'ACCESS_TOKEN');
+    navigate("/"); 
+  }
 
   return (
     <>
@@ -28,7 +33,7 @@ export default function Login() {
             className="w-11/12 max-w-xl h-10
                 text-lg shadow-lg m-1
                 bg-blue-600 hover:bg-blue-500 active:bg-blue-700"
-            onClick={() => navigate("/")}>
+            onClick={onLoginBtnClick}>
             Sign In
           </Button>
         <div className="flex-row">

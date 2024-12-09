@@ -1,6 +1,13 @@
 import { Label } from "@/components/ui/label";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
+  const navigate = useNavigate();
+  const accessToken = localStorage.getItem('accessToken');
+  if (!accessToken) {
+    navigate("/login");
+  }
+  
   return (
       <>
       <div className="mt-24">
