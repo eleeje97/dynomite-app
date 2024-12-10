@@ -6,9 +6,13 @@ import { useNavigate } from 'react-router-dom';
 export default function Login() {
   const navigate = useNavigate();
 
-  const onLoginBtnClick = () => {
+  const onSignInBtnClick = () => {
     localStorage.setItem('accessToken', 'ACCESS_TOKEN');
     navigate('/');
+  };
+
+  const onSignUpBtnClick = () => {
+    navigate('/signup');
   };
 
   return (
@@ -33,7 +37,7 @@ export default function Login() {
           className="w-11/12 max-w-xl h-10
                 text-lg shadow-lg m-1
                 bg-blue-600 hover:bg-blue-500 active:bg-blue-700"
-          onClick={onLoginBtnClick}
+          onClick={onSignInBtnClick}
         >
           Sign In
         </Button>
@@ -42,7 +46,7 @@ export default function Login() {
           <Button
             className="font-semibold text-blue-700"
             variant="link"
-            onClick={() => alert('아직 안했지롱~')}
+            onClick={onSignUpBtnClick}
           >
             회원가입하기
           </Button>
