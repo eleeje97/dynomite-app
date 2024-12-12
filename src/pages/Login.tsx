@@ -17,7 +17,7 @@ export default function Login() {
 
   return (
     <>
-      <div className="mt-24">
+      <div className="mt-24 text-center">
         <h1 className="text-3xl font-semibold text-gray-800">Dynomite</h1>
         <p className="text-gray-600 mt-2">오늘도 멋지게 다이노해볼까요? 🦕🧨</p>
       </div>
