@@ -35,8 +35,7 @@ export default function Login() {
         ></Input>
         <Button
           className="w-11/12 max-w-xl h-10
-                text-lg shadow-lg m-1
-                bg-blue-600 hover:bg-blue-500 active:bg-blue-700"
+                text-lg shadow-lg m-1"
           onClick={onSignInBtnClick}
         >
           Sign In
@@ -44,7 +43,7 @@ export default function Login() {
         <div className="flex-row">
           <Label>아직 회원이 아니신가요?</Label>
           <Button
-            className="font-semibold text-blue-700"
+            className="font-semibold"
             variant="link"
             onClick={onSignUpBtnClick}
           >
