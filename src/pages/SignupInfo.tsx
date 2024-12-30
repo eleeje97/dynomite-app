@@ -9,8 +9,14 @@ import { Button } from '@/components/ui/button.tsx';
 import { Label } from '@/components/ui/label.tsx';
 import { Input } from '@/components/ui/input.tsx';
 import { CalendarIcon } from 'lucide-react';
+import { useState } from 'react';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar } from '@/components/ui/calendar';
+import { format } from 'date-fns';
 
 export default function SignupInfo() {
+  const [date, setDate] = useState<Date>();
+
   return (
     <>
       <Card className="w-5/6 max-w-xl">
@@ -45,46 +51,30 @@ export default function SignupInfo() {
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="birthdate">Date of Birth</Label>
-                <Button variant="outline">
-                  <span>Pick a date</span>
-                  <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                </Button>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant={'outline'}
+                      className="text-muted-foreground"
+                      id='birthdate'
+                    >
+                      <CalendarIcon />
+                      {date ? format(date, 'PPP') : <span>Pick a date</span>}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent
+                    className="w-auto p-0"
+                    align="start"
+                  >
+                    <Calendar
+                      mode="single"
+                      selected={date}
+                      onSelect={setDate}
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
-              {/*<FormLabel>Date of birth</FormLabel>*/}
-              {/*<Popover>*/}
-              {/*  <PopoverTrigger asChild>*/}
-              {/*    <FormControl>*/}
-              {/*      <Button*/}
-              {/*        variant={'outline'}*/}
-              {/*        className={cn(*/}
-              {/*          'w-[240px] pl-3 text-left font-normal',*/}
-              {/*          !field.value && 'text-muted-foreground',*/}
-              {/*        )}*/}
-              {/*      >*/}
-              {/*        {field.value ? (*/}
-              {/*          format(field.value, 'PPP')*/}
-              {/*        ) : (*/}
-              {/*          <span>Pick a date</span>*/}
-              {/*        )}*/}
-              {/*        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />*/}
-              {/*      </Button>*/}
-              {/*    </FormControl>*/}
-              {/*  </PopoverTrigger>*/}
-              {/*  <PopoverContent*/}
-              {/*    className="w-auto p-0"*/}
-              {/*    align="start"*/}
-              {/*  >*/}
-              {/*    <Calendar*/}
-              {/*      mode="single"*/}
-              {/*      selected={field.value}*/}
-              {/*      onSelect={field.onChange}*/}
-              {/*      disabled={(date) =>*/}
-              {/*        date > new Date() || date < new Date('1900-01-01')*/}
-              {/*      }*/}
-              {/*      initialFocus*/}
-              {/*    />*/}
-              {/*  </PopoverContent>*/}
-              {/*</Popover>*/}
             </div>
           </form>
         </CardContent>
