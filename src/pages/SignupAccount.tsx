@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button.tsx';
 import { Label } from '@/components/ui/label.tsx';
 import { Input } from '@/components/ui/input.tsx';
 
-export default function SignupAccount({ onNextBtnClick }) {
+export default function SignupAccount({ onNextBtnClick } : { onNextBtnClick: () => void }) {
   return (
     <>
       <Card className="w-5/6 max-w-xl">
