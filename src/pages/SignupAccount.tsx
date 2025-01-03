@@ -17,6 +17,10 @@ export default function SignupAccount({ onNextBtnClick } : { onNextBtnClick: () 
     passwordConfirm: '비밀번호가 일치하지 않습니다.'};
   const [inputDescription, setInputDescription] = useState({username: '', password: '', passwordConfirm: ''});
 
+  const onUsernameChange = () => {
+    setInputDescription(inputDescriptionExample);
+  };
+
   return (
     <>
       <Card className="w-5/6 max-w-xl">
@@ -27,7 +31,7 @@ export default function SignupAccount({ onNextBtnClick } : { onNextBtnClick: () 
           <form>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="username">아이디</Label>
-              <Input id="username" />
+              <Input id="username" onChange={onUsernameChange} />
               <Label className="text-red-600">{inputDescription.username}</Label>
             </div>
             <div className="mt-2 flex flex-col space-y-1.5">
