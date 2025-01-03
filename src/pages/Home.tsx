@@ -1,13 +1,16 @@
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 export default function Home() {
   const navigate = useNavigate();
-  const accessToken = localStorage.getItem('accessToken');
-  if (!accessToken) {
-    navigate('/login');
-  }
+
+  useEffect(() => {
+    if (!localStorage.getItem('accessToken')) {
+      navigate('/login');
+    }
+  }, []);
 
   const onLogoutBtnClick = () => {
     localStorage.removeItem('accessToken');
@@ -27,7 +30,7 @@ export default function Home() {
 
       <div className="mt-24 text-center">
         <Button
-          className="h-10 shadow-lg m-1 bg-blue-600 hover:bg-blue-500 active:bg-blue-700"
+          className="h-10 shadow-lg m-1"
           onClick={onLogoutBtnClick}
         >
           Logout
