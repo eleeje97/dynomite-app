@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button.tsx';
 import { Label } from '@/components/ui/label.tsx';
 import { Input } from '@/components/ui/input.tsx';
 import { useState } from 'react';
+import accountApi from '@/apis/accountApi.ts';
 
 export default function SignupAccount({ onNextBtnClick } : { onNextBtnClick: () => void }) {
   const inputDescriptionExample = {
@@ -21,6 +22,13 @@ export default function SignupAccount({ onNextBtnClick } : { onNextBtnClick: () 
     setInputDescription(inputDescriptionExample);
   };
 
+  const onUsernameBlur = (username:string) => {
+    accountApi.validateUsername(username)
+      .then((response) => {
+        console.log(response.data);
+      })
+  }
+
   return (
     <>
       <Card className="w-5/6 max-w-xl">
@@ -31,7 +39,7 @@ export default function SignupAccount({ onNextBtnClick } : { onNextBtnClick: () 
           <form>
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="username">아이디</Label>
-              <Input id="username" onChange={onUsernameChange} />
+              <Input id="username" onChange={onUsernameChange} onBlur={(e) => onUsernameBlur(e.target.value)}/>
               <Label className="text-red-600">{inputDescription.username}</Label>
             </div>
             <div className="mt-2 flex flex-col space-y-1.5">
