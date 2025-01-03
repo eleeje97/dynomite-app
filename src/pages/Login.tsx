@@ -2,7 +2,6 @@ import { Button } from '@/components/ui/button.tsx';
 import { Input } from '@/components/ui/input.tsx';
 import { Label } from '@/components/ui/label';
 import { useNavigate } from 'react-router-dom';
-import { Separator } from '@/components/ui/separator.tsx';
 import { FcGoogle } from 'react-icons/fc';
 import { RiKakaoTalkFill } from 'react-icons/ri';
 import { FaGithub } from 'react-icons/fa';
@@ -20,63 +19,73 @@ export default function Login() {
   };
 
   return (
-    <div className="flex flex-col items-center content-center">
-      <div className="mt-24 text-center">
-        <h1 className="text-3xl font-semibold text-gray-800">Dynomite</h1>
-        <p className="text-gray-600 mt-2">오늘도 멋지게 다이노해볼까요? 🦕🧨</p>
-      </div>
+    <>
+      <div className="flex flex-col items-center content-center">
+        <div className="mt-24 text-center">
+          <h1 className="text-3xl font-semibold text-gray-800">Dynomite</h1>
+          <p className="text-gray-600 mt-2">오늘도 멋지게 다이노해볼까요? 🦕🧨</p>
+        </div>
 
-      <div className="m-10">
-        <Button
-          variant="outline"
-          className="w-11/12 max-w-xl m-1"
-        >
-          <FaGithub /> Login with GitHub
-        </Button>
-        <Button
-          variant="outline"
-          className="w-11/12 max-w-xl m-1"
-        >
-          <FcGoogle /> Login with Google
-        </Button>
-        <Button
-          variant="outline"
-          className="w-11/12 max-w-xl m-1"
-        >
-          <RiKakaoTalkFill /> Login with Kakao
-        </Button>
-      </div>
-
-      <Separator className="w-11/12 max-w-xl m-1" />
-
-      <div className="m-10">
-        <Input
-          type="text"
-          placeholder="username"
-          className="w-11/12 max-w-xl m-1"
-        ></Input>
-        <Input
-          type="password"
-          placeholder="password"
-          className="w-11/12 max-w-xl m-1"
-        ></Input>
-        <Button
-          className="w-11/12 max-w-xl shadow-lg m-1"
-          onClick={onSignInBtnClick}
-        >
-          Login
-        </Button>
-        <div className="flex-row">
-          <Label>아직 회원이 아니신가요?</Label>
+        {/*소셜로그인 버튼*/}
+        <div className="mt-10 mb-5 w-4/5 max-w-xl m-1">
           <Button
-            className="font-semibold"
-            variant="link"
-            onClick={onSignUpBtnClick}
+            variant="outline"
+            className="w-full max-w-xl m-1"
           >
-            회원가입하기
+            <FaGithub /> Login with GitHub
+          </Button>
+          <Button
+            variant="outline"
+            className="w-full max-w-xl m-1"
+          >
+            <FcGoogle /> Login with Google
+          </Button>
+          <Button
+            variant="outline"
+            className="w-full max-w-xl m-1"
+          >
+            <RiKakaoTalkFill /> Login with Kakao
           </Button>
         </div>
+
+        {/*구분선*/}
+        <div className="flex items-center w-4/5 max-w-xl m-1">
+          <div className="flex-grow border-t border-border"></div>
+          <span className="px-2 text-sm text-muted-foreground">Or Continue With</span>
+          <div className="flex-grow border-t border-border"></div>
+        </div>
+
+        {/*자체로그인*/}
+        <div className="mt-3 w-4/5 max-w-xl m-1">
+          <Input
+            type="text"
+            placeholder="username"
+            className="w-full max-w-xl m-1"
+          ></Input>
+          <Input
+            type="password"
+            placeholder="password"
+            className="w-full max-w-xl m-1"
+          ></Input>
+          <Button
+            className="w-full max-w-xl m-1 shadow-lg"
+            onClick={onSignInBtnClick}
+          >
+            Login
+          </Button>
+          {/*회원가입*/}
+          <div className="flex-row text-center">
+            <Label>아직 회원이 아니신가요?</Label>
+            <Button
+              className="font-semibold"
+              variant="link"
+              onClick={onSignUpBtnClick}
+            >
+              회원가입하기
+            </Button>
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
