@@ -8,8 +8,15 @@ import {
 import { Button } from '@/components/ui/button.tsx';
 import { Label } from '@/components/ui/label.tsx';
 import { Input } from '@/components/ui/input.tsx';
+import { useState } from 'react';
 
 export default function SignupAccount({ onNextBtnClick } : { onNextBtnClick: () => void }) {
+  const inputDescriptionExample = {
+    username: '이미 존재하는 아이디입니다.',
+    password: '특수문자를 1자 이상 포함해야 합니다.',
+    passwordConfirm: '비밀번호가 일치하지 않습니다.'};
+  const [inputDescription, setInputDescription] = useState({username: '', password: '', passwordConfirm: ''});
+
   return (
     <>
       <Card className="w-5/6 max-w-xl">
@@ -18,25 +25,26 @@ export default function SignupAccount({ onNextBtnClick } : { onNextBtnClick: () 
         </CardHeader>
         <CardContent>
           <form>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="username">Username</Label>
-                <Input id="username" />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="password">Password</Label>
-                <Input
-                  id="password"
-                  type="password"
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="password-confirm">Confirm Password</Label>
-                <Input
-                  id="password-confirm"
-                  type="password"
-                />
-              </div>
+            <div className="flex flex-col space-y-1.5">
+              <Label htmlFor="username">아이디</Label>
+              <Input id="username" />
+              <Label className="text-red-600">{inputDescription.username}</Label>
+            </div>
+            <div className="mt-2 flex flex-col space-y-1.5">
+              <Label htmlFor="password">비밀번호</Label>
+              <Input
+                id="password"
+                type="password"
+              />
+              <Label className="text-red-600">{inputDescription.password}</Label>
+            </div>
+            <div className="mt-2 flex flex-col space-y-1.5">
+              <Label htmlFor="password-confirm">비밀번호 확인</Label>
+              <Input
+                id="password-confirm"
+                type="password"
+              />
+              <Label className="text-red-600">{inputDescription.passwordConfirm}</Label>
             </div>
           </form>
         </CardContent>

@@ -13,6 +13,7 @@ import { useState } from 'react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar } from '@/components/ui/calendar';
 import { format } from 'date-fns';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group.tsx';
 
 export default function SignupInfo() {
   const [date, setDate] = useState<Date>();
@@ -25,32 +26,34 @@ export default function SignupInfo() {
         </CardHeader>
         <CardContent>
           <form>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name">Name</Label>
+              <div className="mt-2 flex flex-col space-y-1.5">
+                <Label htmlFor="name">이름</Label>
                 <Input id="name" />
               </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="nickname">Nickname</Label>
+              <div className="mt-2 flex flex-col space-y-1.5">
+                <Label htmlFor="nickname">닉네임</Label>
                 <Input id="nickname" />
               </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="email">E-mail</Label>
+              <div className="mt-2 flex flex-col space-y-1.5">
+                <Label htmlFor="email">이메일</Label>
                 <Input
                   id="email"
                   type="email"
                 />
               </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="phone">Phone</Label>
+              <div className="mt-2 flex flex-col space-y-1.5">
+                <Label htmlFor="phone">휴대폰 번호</Label>
                 <Input id="phone" />
               </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="gender">Gender</Label>
-                <Input id="gender" />
+              <div className="mt-2 flex flex-col space-y-1.5">
+                <Label htmlFor="gender">성별</Label>
+                <ToggleGroup id="gender" defaultValue="male" type="single">
+                  <ToggleGroupItem variant="outline" className="w-1/2" value="male">남</ToggleGroupItem>
+                  <ToggleGroupItem variant="outline" className="w-1/2" value="female">여</ToggleGroupItem>
+                </ToggleGroup>
               </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="birthdate">Date of Birth</Label>
+              <div className="mt-2 flex flex-col space-y-1.5">
+                <Label htmlFor="birthdate">생년월일</Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
@@ -75,7 +78,6 @@ export default function SignupInfo() {
                   </PopoverContent>
                 </Popover>
               </div>
-            </div>
           </form>
         </CardContent>
         <CardFooter>
