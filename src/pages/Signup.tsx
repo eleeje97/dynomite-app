@@ -10,7 +10,7 @@ export default function SignUp() {
   return (
     <>
       <div className="min-h-screen grid place-items-center">
-        <SignupComponent onNextBtnClick={showNextSignupComponent} />
+        <SignupComponent showNextSignupComponent={showNextSignupComponent} />
       </div>
     </>
   );

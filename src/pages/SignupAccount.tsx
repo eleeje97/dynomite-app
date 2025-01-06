@@ -8,66 +8,132 @@ import {
 import { Button } from '@/components/ui/button.tsx';
 import { Label } from '@/components/ui/label.tsx';
 import { Input } from '@/components/ui/input.tsx';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import accountApi from '@/apis/accountApi.ts';
 
-export default function SignupAccount({ onNextBtnClick } : { onNextBtnClick: () => void }) {
-  const inputDescriptionExample = {
-    username: '이미 존재하는 아이디입니다.',
-    password: '특수문자를 1자 이상 포함해야 합니다.',
-    passwordConfirm: '비밀번호가 일치하지 않습니다.'};
-  const [inputDescription, setInputDescription] = useState({username: '', password: '', passwordConfirm: ''});
+export default function SignupAccount({ showNextSignupComponent } : { showNextSignupComponent: () => void }) {
+  const password = useRef(null);
+  const [isValid, setIsValid] = useState({
+    username: false,
+    password: false,
+    passwordConfirm: false,
+  });
 
-  const onUsernameChange = () => {
-    setInputDescription(inputDescriptionExample);
-  };
+  const [inputDescription, setInputDescription] = useState({
+    username: '',
+    password: '',
+    passwordConfirm: ''
+  });
 
-  const onUsernameBlur = (username:string) => {
+  const onUsernameBlur = (username) => {
     accountApi.validateUsername(username)
       .then((response) => {
-        console.log(response.data);
+        let description = response.data.errMsg;
+        if (response.data.valid) {
+          description = '';
+        }
+        setIsValid((prev) => ({
+          ...prev,
+          username: response.data.valid,
+        }))
+        setInputDescription((prev) => ({
+          ...prev,
+          username: description}));
       })
   }
 
+  const onPasswordBlur = (password) => {
+    accountApi.validatePassword(password)
+      .then((response) => {
+        let description = response.data.errMsg;
+        if (response.data.valid) {
+          description = '';
+        }
+        setIsValid((prev) => ({
+          ...prev,
+          password: response.data.valid,
+        }))
+        setInputDescription((prev) => ({
+          ...prev,
+          password: description}));
+      })
+  }
+
+  const onPasswordConfirmBlur = (passwordConfirm) => {
+    let isValid = false;
+    let description = '비밀번호가 일치하지 않습니다.';
+    if (password?.current.value == passwordConfirm) {
+      isValid = true;
+      description = '';
+    }
+    setIsValid((prev) => ({
+      ...prev,
+      passwordConfirm: isValid,
+    }))
+    setInputDescription((prev) => ({
+      ...prev,
+      passwordConfirm: description}));
+  }
+
+  const onNextBtnClick = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const formData = new FormData(event.currentTarget);
+    // onUsernameBlur(formData.get('username'));
+    // onPasswordBlur(formData.get('password'));
+    onPasswordConfirmBlur(formData.get('password-confirm'));
+    const signUpData = {
+      username: formData.get('username'),
+      password: formData.get('password')
+    }
+    console.log(signUpData);
+    console.log(isValid);
+
+    if (isValid.username && isValid.password && isValid.passwordConfirm) {
+      showNextSignupComponent();
+    }
+  };
+
   return (
     <>
-      <Card className="w-5/6 max-w-xl">
+    <Card className="w-5/6 max-w-xl">
+      <form onSubmit={onNextBtnClick}>
         <CardHeader>
           <CardTitle className="text-xl">Welcome To Dynomite!</CardTitle>
         </CardHeader>
         <CardContent>
-          <form>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="username">아이디</Label>
-              <Input id="username" onChange={onUsernameChange} onBlur={(e) => onUsernameBlur(e.target.value)}/>
-              <Label className="text-red-600">{inputDescription.username}</Label>
-            </div>
-            <div className="mt-2 flex flex-col space-y-1.5">
-              <Label htmlFor="password">비밀번호</Label>
-              <Input
-                id="password"
-                type="password"
-              />
-              <Label className="text-red-600">{inputDescription.password}</Label>
-            </div>
-            <div className="mt-2 flex flex-col space-y-1.5">
-              <Label htmlFor="password-confirm">비밀번호 확인</Label>
-              <Input
-                id="password-confirm"
-                type="password"
-              />
-              <Label className="text-red-600">{inputDescription.passwordConfirm}</Label>
-            </div>
-          </form>
-        </CardContent>
-        <CardFooter>
-          <Button
-            className="w-full"
-            onClick={onNextBtnClick}
-          >
+          <div className="flex flex-col space-y-1.5">
+            <Label htmlFor="username">아이디</Label>
+            <Input name="username" onBlur={(e) => onUsernameBlur(e.target.value)} />
+            <Label className="text-red-600">{inputDescription.username}</Label>
+          </div>
+          <div className="mt-2 flex flex-col space-y-1.5">
+            <Label htmlFor="password">비밀번호</Label>
+            <Input
+              ref={password}
+              name="password"
+              type="password"
+              onBlur={(e) => onPasswordBlur(e.target.value)}
+            />
+            <Label className="text-red-600">{inputDescription.password}</Label>
+          </div>
+          <div className="mt-2 flex flex-col space-y-1.5">
+            <Label htmlFor="password-confirm">비밀번호 확인</Label>
+            <Input
+              name="password-confirm"
+              type="password"
+              onBlur={(e) => onPasswordConfirmBlur(e.target.value)}
+            />
+            <Label className="text-red-600">{inputDescription.passwordConfirm}</Label>
+          </div>
+    </CardContent>
+    <CardFooter>
+      <Button
+        className="w-full"
+        type="submit">
             Next
           </Button>
         </CardFooter>
+      </form>
       </Card>
     </>
   );
