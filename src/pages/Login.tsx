@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { FcGoogle } from 'react-icons/fc';
 import { RiKakaoTalkFill } from 'react-icons/ri';
 import { FaGithub } from 'react-icons/fa';
+import supabase from '@/lib/supabase.ts';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -18,12 +19,23 @@ export default function Login() {
     navigate('/signup');
   };
 
+  const onKakaoLoginBtnClick = async () => {
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'kakao',
+      options: {
+        redirectTo: 'http://localhost:5173/',
+      },
+    });
+  };
+
   return (
     <>
       <div className="flex flex-col items-center content-center">
         <div className="mt-24 text-center">
           <h1 className="text-3xl font-semibold text-gray-800">Dynomite</h1>
-          <p className="text-gray-600 mt-2">오늘도 멋지게 다이노해볼까요? 🦕🧨</p>
+          <p className="text-gray-600 mt-2">
+            오늘도 멋지게 다이노해볼까요? 🦕🧨
+          </p>
         </div>
 
         {/*소셜로그인 버튼*/}
@@ -43,6 +55,7 @@ export default function Login() {
           <Button
             variant="outline"
             className="w-full max-w-xl m-1"
+            onClick={onKakaoLoginBtnClick}
           >
             <RiKakaoTalkFill /> Login with Kakao
           </Button>
@@ -51,7 +64,9 @@ export default function Login() {
         {/*구분선*/}
         <div className="flex items-center w-4/5 max-w-xl m-1">
           <div className="flex-grow border-t border-border"></div>
-          <span className="px-2 text-sm text-muted-foreground">Or Continue With</span>
+          <span className="px-2 text-sm text-muted-foreground">
+            Or Continue With
+          </span>
           <div className="flex-grow border-t border-border"></div>
         </div>
 
