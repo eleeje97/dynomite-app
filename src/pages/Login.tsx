@@ -9,22 +9,20 @@ import { FaGithub } from 'react-icons/fa';
 export default function Login() {
   const navigate = useNavigate();
 
-  const onSignInBtnClick = () => {
-    localStorage.setItem('accessToken', 'ACCESS_TOKEN');
-    navigate('/');
-  };
-
-  const onSignUpBtnClick = () => {
-    navigate('/signup');
-  };
-
   const REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;
   const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
-
   const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
   const onKakaoLoginBtnClick = () => {
     window.location.href = KAKAO_AUTH_URL;
+  };
+
+  const onSignInBtnClick = () => {
+    alert('아직 안했지롱~');
+  };
+
+  const onSignUpBtnClick = () => {
+    alert('아직 안했지롱~');
   };
 
   return (
