@@ -18,12 +18,23 @@ export default function Login() {
     navigate('/signup');
   };
 
+  const REST_API_KEY = import.meta.env.VITE_KAKAO_REST_API_KEY;
+  const REDIRECT_URI = import.meta.env.VITE_KAKAO_REDIRECT_URI;
+
+  const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+
+  const onKakaoLoginBtnClick = () => {
+    window.location.href = KAKAO_AUTH_URL;
+  };
+
   return (
     <>
       <div className="flex flex-col items-center content-center">
         <div className="mt-24 text-center">
           <h1 className="text-3xl font-semibold text-gray-800">Dynomite</h1>
-          <p className="text-gray-600 mt-2">오늘도 멋지게 다이노해볼까요? 🦕🧨</p>
+          <p className="text-gray-600 mt-2">
+            오늘도 멋지게 다이노해볼까요? 🦕🧨
+          </p>
         </div>
 
         {/*소셜로그인 버튼*/}
@@ -43,6 +54,7 @@ export default function Login() {
           <Button
             variant="outline"
             className="w-full max-w-xl m-1"
+            onClick={onKakaoLoginBtnClick}
           >
             <RiKakaoTalkFill /> Login with Kakao
           </Button>
@@ -51,7 +63,9 @@ export default function Login() {
         {/*구분선*/}
         <div className="flex items-center w-4/5 max-w-xl m-1">
           <div className="flex-grow border-t border-border"></div>
-          <span className="px-2 text-sm text-muted-foreground">Or Continue With</span>
+          <span className="px-2 text-sm text-muted-foreground">
+            Or Continue With
+          </span>
           <div className="flex-grow border-t border-border"></div>
         </div>
 
