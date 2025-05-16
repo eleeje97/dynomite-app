@@ -19,16 +19,18 @@ const Loading = ({ done }: { done: boolean }) => {
 
   return (
     <>
-      <img
-        src={DynomiteIcon}
-        alt="Dynomite Logo"
-        width={200}
-        className="rounded-3xl"
-      />
-      <Progress
-        value={progress}
-        className="w-[60%] mt-16"
-      />
+      <div className="flex flex-col items-center justify-center h-screen">
+        <img
+          src={DynomiteIcon}
+          alt="Dynomite Logo"
+          width={200}
+          className="rounded-3xl"
+        />
+        <Progress
+          value={progress}
+          className="w-[60%] mt-16"
+        />
+      </div>
     </>
   );
 };
