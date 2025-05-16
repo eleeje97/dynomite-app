@@ -7,7 +7,6 @@ const accountApi = {
     axiosClient.post(`/accounts/validate/password`, { value: password }),
   kakaoLogin: (code: string) =>
     axiosClient.get(`/auth/kakao/callback?code=${code}`, {}),
-  getKakaoKey: () => axiosClient.get(`/auth/kakao/key`, {}),
 };
 
 export default accountApi;
