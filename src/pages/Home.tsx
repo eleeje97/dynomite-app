@@ -1,16 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Avatar, AvatarImage } from '@/components/ui/avatar.tsx';
-import { Label } from '@/components/ui/label.tsx';
+import { useEffect, useState } from 'react';
+import TermMembershipCard from '@/components/TermMembershipCard.tsx';
+import PassMembershipCard from '@/components/PassMembershipCard.tsx';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -88,6 +80,8 @@ export default function Home() {
     navigate('/login');
   };
 
+  const [focusId, setFocusId] = useState(-1);
+
   return (
     <>
       <div className="flex flex-col items-center content-center justify-center">
@@ -96,35 +90,23 @@ export default function Home() {
         </div>
 
         <div className="mt-12 w-5/6 max-w-96">
-          {memberships.map((value) => (
-            <Card className="mb-2.5">
-              <CardHeader className="flex flex-row">
-                <Avatar>
-                  <AvatarImage src={value.climb_gym_logo} />
-                </Avatar>
-                <CardTitle className="ml-5 text-lg">
-                  {value.climb_gym_name}
-                </CardTitle>
-                <div
-                  className={`ml-auto items-end ${value.remaining_usage_count == -1 ? 'hidden' : ''}`}
-                >
-                  <Label className="text-3xl">
-                    {value.remaining_usage_count}
-                  </Label>
-                  <Label className="text-lg">&nbsp;회</Label>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <p className="font-bold">D-82</p>
-                <CardDescription>
-                  {value.start_date + ' ~ ' + value.end_date}
-                </CardDescription>
-              </CardContent>
-              <CardFooter className="hidden">
-                <Button className="w-full">사용하기</Button>
-              </CardFooter>
-            </Card>
-          ))}
+          {memberships.map((value) =>
+            value.remaining_usage_count == -1 ? (
+              <TermMembershipCard
+                key={value.id}
+                membership={value}
+                isFocused={focusId === value.id}
+                onClick={() => setFocusId(value.id)}
+              />
+            ) : (
+              <PassMembershipCard
+                key={value.id}
+                membership={value}
+                isFocused={focusId === value.id}
+                onClick={() => setFocusId(value.id)}
+              />
+            ),
+          )}
         </div>
 
         <div className="m-5 text-center">
