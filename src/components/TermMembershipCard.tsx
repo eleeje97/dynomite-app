@@ -8,8 +8,17 @@ import {
 } from '@/components/ui/card.tsx';
 import { Avatar, AvatarImage } from '@/components/ui/avatar.tsx';
 import { Button } from '@/components/ui/button.tsx';
+import { Membership } from '@/interfaces/Membership.ts';
 
-const TermMembershipCard = ({ membership, isFocused, onClick }) => {
+const TermMembershipCard = ({
+  membership,
+  isFocused,
+  onClick,
+}: {
+  membership: Membership;
+  isFocused: boolean;
+  onClick: () => void;
+}) => {
   return (
     <Card
       className="mb-2.5"

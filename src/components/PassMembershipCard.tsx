@@ -9,8 +9,17 @@ import {
 import { Avatar, AvatarImage } from '@/components/ui/avatar.tsx';
 import { Label } from '@/components/ui/label.tsx';
 import { Button } from '@/components/ui/button.tsx';
+import { Membership } from '@/interfaces/Membership.ts';
 
-const PassMembershipCard = ({ membership, isFocused, onClick }) => {
+const PassMembershipCard = ({
+  membership,
+  isFocused,
+  onClick,
+}: {
+  membership: Membership;
+  isFocused: boolean;
+  onClick: () => void;
+}) => {
   return (
     <Card
       className="mb-2.5"
