@@ -1,9 +1,10 @@
 export interface Membership {
   id: number;
-  climb_gym_name: string;
-  climb_gym_logo: string;
-  start_date: string;
-  end_date: string;
-  remaining_usage_count: number;
+  climbGymName: string;
+  climbGymLogo: string;
+  startDate: string;
+  endDate: string;
+  totalCount: number;
+  useCount: number;
   status: string;
 }

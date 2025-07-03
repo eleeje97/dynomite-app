@@ -9,6 +9,8 @@ import {
 import { Avatar, AvatarImage } from '@/components/ui/avatar.tsx';
 import { Button } from '@/components/ui/button.tsx';
 import { Membership } from '@/interfaces/Membership.ts';
+import { Progress } from '@/components/ui/progress.tsx';
+import { differenceInCalendarDays, parse } from 'date-fns';
 
 const TermMembershipCard = ({
   membership,
@@ -19,6 +21,16 @@ const TermMembershipCard = ({
   isFocused: boolean;
   onClick: () => void;
 }) => {
+  const term = differenceInCalendarDays(
+    parse(membership.endDate, 'yyyy.MM.dd', new Date()),
+    parse(membership.startDate, 'yyyy.MM.dd', new Date()),
+  );
+
+  const remainDate = differenceInCalendarDays(
+    parse(membership.endDate, 'yyyy.MM.dd', new Date()),
+    new Date(),
+  );
+
   return (
     <Card
       className="mb-2.5"
@@ -26,17 +38,21 @@ const TermMembershipCard = ({
     >
       <CardHeader className="flex flex-row">
         <Avatar>
-          <AvatarImage src={membership.climb_gym_logo} />
+          <AvatarImage src={membership.climbGymLogo} />
         </Avatar>
         <CardTitle className="ml-5 text-lg">
-          {membership.climb_gym_name}
+          {membership.climbGymName}
         </CardTitle>
       </CardHeader>
       <CardContent>
-        <p className="font-bold">D-82</p>
+        <p className="font-bold">D-{remainDate}</p>
         <CardDescription>
-          {membership.start_date + ' ~ ' + membership.end_date}
+          {membership.startDate + ' - ' + membership.endDate}
         </CardDescription>
+        <Progress
+          value={((term - remainDate) / term) * 100}
+          className="mt-3"
+        />
       </CardContent>
       <CardFooter className={`${isFocused ? '' : 'hidden'}`}>
         <Button className="w-full">사용하기</Button>
