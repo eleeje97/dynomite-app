@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import TermMembershipCard from '@/components/TermMembershipCard.tsx';
 import PassMembershipCard from '@/components/PassMembershipCard.tsx';
+import { IoTicketOutline } from 'react-icons/io5';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export default function Home() {
       climbGymLogo:
         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8fGBa22PEs7vRJ3mjmBg1N3YMDE9nrGcMZQ&s',
       startDate: '2025.07.01',
-      endDate: '2025.07.05',
+      endDate: '2026.06.30',
       totalCount: -1,
       useCount: 9,
       status: 'ACTIVE',
@@ -59,6 +60,9 @@ export default function Home() {
     }
   }, [navigate]);
 
+  const onAddMembershipBtnClick = () => {
+    navigate('/membership/register');
+  };
   const onLogoutBtnClick = () => {
     localStorage.removeItem('token');
     navigate('/login');
@@ -68,12 +72,24 @@ export default function Home() {
 
   return (
     <>
-      <div className="flex flex-col items-center content-center justify-center">
-        <div className="text-center">
-          <h1 className="mt-7 text-3xl font-semibold text-gray-800">🦕</h1>
+      <div className="flex flex-col items-center justify-center w-full">
+        <div className="flex items-center w-full px-9 mt-7">
+          <div className="flex-1 text-left"></div>
+          <h1 className="text-3xl font-semibold text-gray-800 text-center">
+            🦕
+          </h1>
+          <div className="flex-1 flex justify-end">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={onAddMembershipBtnClick}
+            >
+              <IoTicketOutline /> 회원권 추가
+            </Button>
+          </div>
         </div>
 
-        <div className="mt-12 w-5/6 max-w-96">
+        <div className="mt-10 w-5/6 max-w-96">
           {memberships.map((value) =>
             value.totalCount == -1 ? (
               <TermMembershipCard
